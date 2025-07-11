@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # 1. Tải code về
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # 2. Cài đặt Flutter
       - uses: subosito/flutter-action@v2
