@@ -1,0 +1,34 @@
+# Tên của workflow
+name: Build Flutter APK
+
+# Kích hoạt khi có push lên nhánh main
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-apk:
+    name: Build Release APK
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Tải code về
+      - uses: actions/checkout@v3
+
+      # 2. Cài đặt Flutter
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      # 3. Lấy dependencies
+      - run: flutter pub get
+
+      # 4. Build APK
+      - run: flutter build apk --release
+
+      # 5. Tải lên artifact
+      - uses: actions/upload-artifact@v3
+        with:
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
